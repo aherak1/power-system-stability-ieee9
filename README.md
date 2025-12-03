@@ -5,6 +5,13 @@ Simulation of PID, AVR, and UPFC Controllers for Improving Transient Stability
 This project analyzes transient stability of the **WECC 3-machine, 9-bus system** using **ModelSolver**.  
 The work includes simulations of **PID controllers**, **AVR regulators**, and an integrated **PID + UPFC** approach under different fault conditions.
 
+## Team
+- **Ajla Herak** – aherak1@etf.unsa.ba  
+- **Adelisa Hasic** – ahasic2@etf.unsa.ba
+- **Naida Mehic** – nmehic1@etf.unsa.ba  
+  
+Department of Automation and Electronics, Faculty of Electrical Engineering, Sarajevo, Bosnia and Herzegovina
+
 ---
 
 ## Project Overview
