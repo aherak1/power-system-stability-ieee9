@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model type="DAE" domain="real" method="Trapezoidal" eps="0.0001" name="case9_DYN_V1">
+    <!--Variables for DAE problem-->
+    <Vars out="true">
+        <!--Power network variables-->
+        <Var name="V1" val="1"/>
+        <Var name="theta1" val="0"/>
+        <Var name="V2" val="1"/>
+        <Var name="theta2" val="0"/>
+        <Var name="V3" val="1"/>
+        <Var name="theta3" val="0"/>
+        <Var name="V4" val="1"/>
+        <Var name="theta4" val="0"/>
+        <Var name="V5" val="1"/>
+        <Var name="theta5" val="0"/>
+        <Var name="V6" val="1"/>
+        <Var name="theta6" val="0"/>
+        <Var name="V7" val="1"/>
+        <Var name="theta7" val="0"/>
+        <Var name="V8" val="1"/>
+        <Var name="theta8" val="0"/>
+        <Var name="V9" val="1"/>
+        <Var name="theta9" val="0"/>
+        <!--Synchrnous generator 1 (Bus 1) variables-->
+        <Var name="delta1" val="1"/>
+        <Var name="w1" val="1"/>
+        <Var name="e1q1" val="1"/>
+        <Var name="id1" val="1"/>
+        <Var name="iq1" val="1"/>
+        <!--Synchrnous generator 2 (Bus 2) variables-->
+        <Var name="delta2" val="1"/>
+        <Var name="w2" val="1"/>
+        <Var name="e1q2" val="1"/>
+        <Var name="id2" val="1"/>
+        <Var name="iq2" val="1"/>
+        <!--Synchrnous generator 3 (Bus 3) variables-->
+        <Var name="delta3" val="1"/>
+        <Var name="w3" val="1"/>
+        <Var name="e1q3" val="1"/>
+        <Var name="id3" val="1"/>
+        <Var name="iq3" val="1"/>
+        <!--Automatic voltage regulator 1 (Generator 1) variables-->
+        <Var name="vrm1"/>
+        <Var name="vrf1"/>
+        <Var name="vrr1"/>
+        <Var name="vf1"/>
+        <!--Automatic voltage regulator 2 (Generator 2) variables-->
+        <Var name="vrm2"/>
+        <Var name="vrf2"/>
+        <Var name="vrr2"/>
+        <Var name="vf2"/>
+        <!--Automatic voltage regulator 3 (Generator 3) variables-->
+        <Var name="vrm3"/>
+        <Var name="vrf3"/>
+        <Var name="vrr3"/>
+        <Var name="vf3"/>
+   
+        <!--PID controller 1 variables-->
+        <Var name="pid_integral1" val="0"/>
+        <Var name="pid_error_prev1" val="0"/>
+        <Var name="pid_error1" val="0"/>
+        <Var name="pid_derivative1" val="0"/>
+        <Var name="pid_output1" val="0"/>
+
+        <!--PID controller 2 variables-->
+        <Var name="pid_integral2" val="0"/>
+        <Var name="pid_error_prev2" val="0"/>
+        <Var name="pid_error2" val="0"/>
+        <Var name="pid_derivative2" val="0"/>
+        <Var name="pid_output2" val="0"/>
+
+        <!--PID controller 3 variables-->
+        <Var name="pid_integral3" val="0"/>
+        <Var name="pid_error_prev3" val="0"/>
+        <Var name="pid_error3" val="0"/>
+        <Var name="pid_derivative3" val="0"/>
+        <Var name="pid_output3" val="0"/>
+    </Vars>
+    <!--Parameters for DAE problem-->
+    <Params>
+        <!--Power network parameters-->
+        <Param name="wn" val="376.99111843077515"/>
+        <Param name="ws" val="1"/>
+        <Param name="pi" val="3.141592653589793"/>
+        <Param name="V1_0" val="1.04"/>
+        <Param name="theta1_0" val="0.0"/>
+        <Param name="V2_0" val="1.025"/>
+        <Param name="theta2_0" val="0.0"/>
+        <Param name="V3_0" val="1.025"/>
+        <Param name="theta3_0" val="0.0"/>
+        <Param name="V4_0" val="1.0"/>
+        <Param name="theta4_0" val="0.0"/>
+        <Param name="V5_0" val="1.0"/>
+        <Param name="theta5_0" val="0.0"/>
+        <Param name="V6_0" val="1.0"/>
+        <Param name="theta6_0" val="0.0"/>
+        <Param name="V7_0" val="1.0"/>
+        <Param name="theta7_0" val="0.0"/>
+        <Param name="V8_0" val="1.0"/>
+        <Param name="theta8_0" val="0.0"/>
+        <Param name="V9_0" val="1.0"/>
+        <Param name="theta9_0" val="0.0"/>
+        <Param name="G1_1" val="0.0"/>
+        <Param name="B1_1" val="-17.36111111111111"/>
+        <Param name="G1_2" val="0.0"/>
+        <Param name="B1_2" val="0.0"/>
+        <Param name="G1_3" val="0.0"/>
+        <Param name="B1_3" val="0.0"/>
+        <Param name="G1_4" val="0.0"/>
+        <Param name="B1_4" val="17.36111111111111"/>
+        <Param name="G1_5" val="0.0"/>
+        <Param name="B1_5" val="0.0"/>
+        <Param name="G1_6" val="0.0"/>
+        <Param name="B1_6" val="0.0"/>
+        <Param name="G1_7" val="0.0"/>
+        <Param name="B1_7" val="0.0"/>
+        <Param name="G1_8" val="0.0"/>
+        <Param name="B1_8" val="0.0"/>
+        <Param name="G1_9" val="0.0"/>
+        <Param name="B1_9" val="0.0"/>
+        <Param name="G2_1" val="0.0"/>
+        <Param name="B2_1" val="0.0"/>
+        <Param name="G2_2" val="0.0"/>
+        <Param name="B2_2" val="-16.0"/>
+        <Param name="G2_3" val="0.0"/>
+        <Param name="B2_3" val="0.0"/>
+        <Param name="G2_4" val="0.0"/>
+        <Param name="B2_4" val="0.0"/>
+        <Param name="G2_5" val="0.0"/>
+        <Param name="B2_5" val="0.0"/>
+        <Param name="G2_6" val="0.0"/>
+        <Param name="B2_6" val="0.0"/>
+        <Param name="G2_7" val="0.0"/>
+        <Param name="B2_7" val="0.0"/>
+        <Param name="G2_8" val="0.0"/>
+        <Param name="B2_8" val="16.0"/>
+        <Param name="G2_9" val="0.0"/>
+        <Param name="B2_9" val="0.0"/>
+        <Param name="G3_1" val="0.0"/>
+        <Param name="B3_1" val="0.0"/>
+        <Param name="G3_2" val="0.0"/>
+        <Param name="B3_2" val="0.0"/>
+        <Param name="G3_3" val="0.0"/>
+        <Param name="B3_3" val="-17.064846416382252"/>
+        <Param name="G3_4" val="0.0"/>
+        <Param name="B3_4" val="0.0"/>
+        <Param name="G3_5" val="0.0"/>
+        <Param name="B3_5" val="0.0"/>
+        <Param name="G3_6" val="0.0"/>
+        <Param name="B3_6" val="17.064846416382252"/>
+        <Param name="G3_7" val="0.0"/>
+        <Param name="B3_7" val="0.0"/>
+        <Param name="G3_8" val="0.0"/>
+        <Param name="B3_8" val="0.0"/>
+        <Param name="G3_9" val="0.0"/>
+        <Param name="B3_9" val="0.0"/>
+        <Param name="G4_1" val="0.0"/>
+        <Param name="B4_1" val="17.36111111111111"/>
+        <Param name="G4_2" val="0.0"/>
+        <Param name="B4_2" val="0.0"/>
+        <Param name="G4_3" val="0.0"/>
+        <Param name="B4_3" val="0.0"/>
+        <Param name="G4_4" val="3.3073789620253065"/>
+        <Param name="B4_4" val="-39.30888872611897"/>
+        <Param name="G4_5" val="-1.9421912487147266"/>
+        <Param name="B4_5" val="10.510682051867931"/>
+        <Param name="G4_6" val="0.0"/>
+        <Param name="B4_6" val="0.0"/>
+        <Param name="G4_7" val="0.0"/>
+        <Param name="B4_7" val="0.0"/>
+        <Param name="G4_8" val="0.0"/>
+        <Param name="B4_8" val="0.0"/>
+        <Param name="G4_9" val="-1.36518771331058"/>
+        <Param name="B4_9" val="11.60409556313993"/>
+        <Param name="G5_1" val="0.0"/>
+        <Param name="B5_1" val="0.0"/>
+        <Param name="G5_2" val="0.0"/>
+        <Param name="B5_2" val="0.0"/>
+        <Param name="G5_3" val="0.0"/>
+        <Param name="B5_3" val="0.0"/>
+        <Param name="G5_4" val="-1.9421912487147266"/>
+        <Param name="B5_4" val="10.510682051867931"/>
+        <Param name="G5_5" val="3.2242003871388416"/>
+        <Param name="B5_5" val="-15.840927014229457"/>
+        <Param name="G5_6" val="-1.2820091384241148"/>
+        <Param name="B5_6" val="5.588244962361526"/>
+        <Param name="G5_7" val="0.0"/>
+        <Param name="B5_7" val="0.0"/>
+        <Param name="G5_8" val="0.0"/>
+        <Param name="B5_8" val="0.0"/>
+        <Param name="G5_9" val="0.0"/>
+        <Param name="B5_9" val="0.0"/>
+        <Param name="G6_1" val="0.0"/>
+        <Param name="B6_1" val="0.0"/>
+        <Param name="G6_2" val="0.0"/>
+        <Param name="B6_2" val="0.0"/>
+        <Param name="G6_3" val="0.0"/>
+        <Param name="B6_3" val="17.064846416382252"/>
+        <Param name="G6_4" val="0.0"/>
+        <Param name="B6_4" val="0.0"/>
+        <Param name="G6_5" val="-1.2820091384241148"/>
+        <Param name="B6_5" val="5.588244962361526"/>
+        <Param name="G6_6" val="2.437096619314212"/>
+        <Param name="B6_6" val="-32.153861805106956"/>
+        <Param name="G6_7" val="-1.155087480890097"/>
+        <Param name="B6_7" val="9.784270426363173"/>
+        <Param name="G6_8" val="0.0"/>
+        <Param name="B6_8" val="0.0"/>
+        <Param name="G6_9" val="0.0"/>
+        <Param name="B6_9" val="0.0"/>
+        <Param name="G7_1" val="0.0"/>
+        <Param name="B7_1" val="0.0"/>
+        <Param name="G7_2" val="0.0"/>
+        <Param name="B7_2" val="0.0"/>
+        <Param name="G7_3" val="0.0"/>
+        <Param name="B7_3" val="0.0"/>
+        <Param name="G7_4" val="0.0"/>
+        <Param name="B7_4" val="0.0"/>
+        <Param name="G7_5" val="0.0"/>
+        <Param name="B7_5" val="0.0"/>
+        <Param name="G7_6" val="-1.155087480890097"/>
+        <Param name="B7_6" val="9.784270426363173"/>
+        <Param name="G7_7" val="2.772209954136233"/>
+        <Param name="B7_7" val="-23.30324902327162"/>
+        <Param name="G7_8" val="-1.6171224732461358"/>
+        <Param name="B7_8" val="13.697978596908444"/>
+        <Param name="G7_9" val="0.0"/>
+        <Param name="B7_9" val="0.0"/>
+        <Param name="G8_1" val="0.0"/>
+        <Param name="B8_1" val="0.0"/>
+        <Param name="G8_2" val="0.0"/>
+        <Param name="B8_2" val="16.0"/>
+        <Param name="G8_3" val="0.0"/>
+        <Param name="B8_3" val="0.0"/>
+        <Param name="G8_4" val="0.0"/>
+        <Param name="B8_4" val="0.0"/>
+        <Param name="G8_5" val="0.0"/>
+        <Param name="B8_5" val="0.0"/>
+        <Param name="G8_6" val="0.0"/>
+        <Param name="B8_6" val="0.0"/>
+        <Param name="G8_7" val="-1.6171224732461358"/>
+        <Param name="B8_7" val="13.697978596908444"/>
+        <Param name="G8_8" val="2.804726852537284"/>
+        <Param name="B8_8" val="-35.44561313021703"/>
+        <Param name="G8_9" val="-1.1876043792911484"/>
+        <Param name="B8_9" val="5.975134533308591"/>
+        <Param name="G9_1" val="0.0"/>
+        <Param name="B9_1" val="0.0"/>
+        <Param name="G9_2" val="0.0"/>
+        <Param name="B9_2" val="0.0"/>
+        <Param name="G9_3" val="0.0"/>
+        <Param name="B9_3" val="0.0"/>
+        <Param name="G9_4" val="-1.36518771331058"/>
+        <Param name="B9_4" val="11.60409556313993"/>
+        <Param name="G9_5" val="0.0"/>
+        <Param name="B9_5" val="0.0"/>
+        <Param name="G9_6" val="0.0"/>
+        <Param name="B9_6" val="0.0"/>
+        <Param name="G9_7" val="0.0"/>
+        <Param name="B9_7" val="0.0"/>
+        <Param name="G9_8" val="-1.1876043792911484"/>
+        <Param name="B9_8" val="5.975134533308591"/>
+        <Param name="G9_9" val="2.5527920926017282"/>
+        <Param name="B9_9" val="-17.338230096448523"/>
+        <Param name="pl1_0" val="0.0"/>
+        <Param name="ql1_0" val="0.0"/>
+        <Param name="pl2_0" val="0.0"/>
+        <Param name="ql2_0" val="0.0"/>
+        <Param name="pl3_0" val="0.0"/>
+        <Param name="ql3_0" val="0.0"/>
+        <Param name="pl4_0" val="0.0"/>
+        <Param name="ql4_0" val="0.0"/>
+        <Param name="pl5_0" val="0.9"/>
+        <Param name="ql5_0" val="0.3"/>
+        <Param name="pl6_0" val="0.0"/>
+        <Param name="ql6_0" val="0.0"/>
+        <Param name="pl7_0" val="1.0"/>
+        <Param name="ql7_0" val="0.35"/>
+        <Param name="pl8_0" val="0.0"/>
+        <Param name="ql8_0" val="0.0"/>
+        <Param name="pl9_0" val="1.25"/>
+        <Param name="ql9_0" val="0.5"/>
+        <Param name="pg1_0" val="0.723"/>
+        <Param name="qg1_0" val="0.2703"/>
+        <Param name="pg2_0" val="1.63"/>
+        <Param name="qg2_0" val="0.0654"/>
+        <Param name="pg3_0" val="0.85"/>
+        <Param name="qg3_0" val="-0.10949999999999999"/>
+        <Param name="pg4_0" val="0"/>
+        <Param name="qg4_0" val="0"/>
+        <Param name="pg5_0" val="0"/>
+        <Param name="qg5_0" val="0"/>
+        <Param name="pg6_0" val="0"/>
+        <Param name="qg6_0" val="0"/>
+        <Param name="pg7_0" val="0"/>
+        <Param name="qg7_0" val="0"/>
+        <Param name="pg8_0" val="0"/>
+        <Param name="qg8_0" val="0"/>
+        <Param name="pg9_0" val="0"/>
+        <Param name="qg9_0" val="0"/>
+        <!--Synchrnous generator 1 (Bus 1) parameters-->
+        <Param name="T1d1" val="8.96"/>
+        <Param name="D1" val="4.7"/>
+        <Param name="M1" val="47.28"/>
+        <Param name="xd1" val="0.146"/>
+        <Param name="xq1" val="0.0969"/>
+        <Param name="x1d1" val="0.0608"/>
+        <Param name="Pm1" val="1"/>
+        <!--Synchrnous generator 2 (Bus 2) parameters-->
+        <Param name="T1d2" val="6.0"/>
+        <Param name="D2" val="2.5"/>
+        <Param name="M2" val="12.8"/>
+        <Param name="xd2" val="0.8958"/>
+        <Param name="xq2" val="0.8645"/>
+        <Param name="x1d2" val="0.1198"/>
+        <Param name="Pm2" val="1"/>
+        <!--Synchrnous generator 3 (Bus 3) parameters-->
+        <Param name="T1d3" val="5.89"/>
+        <Param name="D3" val="1.8"/>
+        <Param name="M3" val="6.02"/>
+        <Param name="xd3" val="1.3125"/>
+        <Param name="xq3" val="1.2578"/>
+        <Param name="x1d3" val="0.1813"/>
+        <Param name="Pm3" val="1"/>
+        <!--Automatic voltage regulator 1 (Generator 1) parameters-->
+        <Param name="Vref1" val="1"/>
+        <Param name="Aef1" val="0.0039008306051577647"/>
+        <Param name="Bef1" val="1.554950914561948"/>
+        <Param name="Ka1" val="20.0"/>
+        <Param name="Kef1" val="1.0"/>
+        <Param name="Kf1" val="0.063"/>
+        <Param name="Ta1" val="0.2"/>
+        <Param name="Tef1" val="0.314"/>
+        <Param name="Tf1" val="0.35"/>
+        <Param name="Tr1" val="0.001"/>
+        <Param name="vrmax1" val="3.0"/>
+        <Param name="vrmin1" val="-3.0"/>
+        <!--Automatic voltage regulator 2 (Generator 2) parameters-->
+        <Param name="Vref2" val="1"/>
+        <Param name="Aef2" val="0.0039008306051577647"/>
+        <Param name="Bef2" val="1.554950914561948"/>
+        <Param name="Ka2" val="20.0"/>
+        <Param name="Kef2" val="1.0"/>
+        <Param name="Kf2" val="0.063"/>
+        <Param name="Ta2" val="0.2"/>
+        <Param name="Tef2" val="0.314"/>
+        <Param name="Tf2" val="0.35"/>
+        <Param name="Tr2" val="0.001"/>
+        <Param name="vrmax2" val="3.0"/>
+        <Param name="vrmin2" val="-3.0"/>
+        <!--Automatic voltage regulator 3 (Generator 3) parameters-->
+        <Param name="Vref3" val="1"/>
+        <Param name="Aef3" val="0.0039008306051577647"/>
+        <Param name="Bef3" val="1.554950914561948"/>
+        <Param name="Ka3" val="20.0"/>
+        <Param name="Kef3" val="1.0"/>
+        <Param name="Kf3" val="0.063"/>
+        <Param name="Ta3" val="0.2"/>
+        <Param name="Tef3" val="0.314"/>
+        <Param name="Tf3" val="0.35"/>
+        <Param name="Tr3" val="0.001"/>
+        <Param name="vrmax3" val="3.0"/>
+        <Param name="vrmin3" val="-3.0"/>
+
+       <!--PID controller parameters for Generator 1-->
+       <Param name="Kp1" val="54.14"/>
+       <Param name="Ki1" val="20.156"/>
+       <Param name="Kd1" val="7.19"/>
+
+       <!--PID controller parameters for Generator 2-->
+       <Param name="Kp2" val="66.451"/>
+       <Param name="Ki2" val="13.27"/>
+       <Param name="Kd2" val="2.94"/>
+
+       <!--PID controller parameters for Generator 3-->
+       <Param name="Kp3" val="76.43"/>
+       <Param name="Ki3" val="18.58"/>
+       <Param name="Kd3" val="3.582"/>
+    </Params>
+    <!--Power flow: variables initialization-->
+    <Init>
+        <Model type="NR" domain="real" eps="1e-06" name="PF Subproblem for DAE">
+            <!--Variables: bus voltage magnitudes and angles-->
+            <Vars>
+                <Var name="V1" val="1"/>
+                <Var name="theta1" val="0"/>
+                <Var name="V2" val="1"/>
+                <Var name="theta2" val="0"/>
+                <Var name="V3" val="1"/>
+                <Var name="theta3" val="0"/>
+                <Var name="V4" val="1"/>
+                <Var name="theta4" val="0"/>
+                <Var name="V5" val="1"/>
+                <Var name="theta5" val="0"/>
+                <Var name="V6" val="1"/>
+                <Var name="theta6" val="0"/>
+                <Var name="V7" val="1"/>
+                <Var name="theta7" val="0"/>
+                <Var name="V8" val="1"/>
+                <Var name="theta8" val="0"/>
+                <Var name="V9" val="1"/>
+                <Var name="theta9" val="0"/>
+            </Vars>
+            <Params>
+                <!--Power network additional parameters-->
+                <Param name="I1r" val="0"/>
+                <Param name="I1im" val="0"/>
+                <Param name="I2r" val="0"/>
+                <Param name="I2im" val="0"/>
+                <Param name="I3r" val="0"/>
+                <Param name="I3im" val="0"/>
+                <Param name="I4r" val="0"/>
+                <Param name="I4im" val="0"/>
+                <Param name="I5r" val="0"/>
+                <Param name="I5im" val="0"/>
+                <Param name="I6r" val="0"/>
+                <Param name="I6im" val="0"/>
+                <Param name="I7r" val="0"/>
+                <Param name="I7im" val="0"/>
+                <Param name="I8r" val="0"/>
+                <Param name="I8im" val="0"/>
+                <Param name="I9r" val="0"/>
+                <Param name="I9im" val="0"/>
+                <!--Synchrnous generator 1 (Bus 1) additional parameters-->
+                <Param name="delta1_0" val="0"/>
+                <Param name="id1_0" val="0"/>
+                <Param name="iq1_0" val="0"/>
+                <Param name="Ig1r" val="0"/>
+                <Param name="Ig1im" val="0"/>
+                <Param name="Ig1" val="0"/>
+                <Param name="fi1" val="0"/>
+                <Param name="dR1" val="0"/>
+                <Param name="dI1" val="0"/>
+                <Param name="e1q1_0" val="0"/>
+                <Param name="vd1_0" val="0"/>
+                <Param name="vq1_0" val="0"/>
+                <Param name="Vf1_0" val="0"/>
+                <Param name="Pm1_0" val="0"/>
+                <!--Synchrnous generator 2 (Bus 2) additional parameters-->
+                <Param name="delta2_0" val="0"/>
+                <Param name="id2_0" val="0"/>
+                <Param name="iq2_0" val="0"/>
+                <Param name="Ig2r" val="0"/>
+                <Param name="Ig2im" val="0"/>
+                <Param name="Ig2" val="0"/>
+                <Param name="fi2" val="0"/>
+                <Param name="dR2" val="0"/>
+                <Param name="dI2" val="0"/>
+                <Param name="e1q2_0" val="0"/>
+                <Param name="vd2_0" val="0"/>
+                <Param name="vq2_0" val="0"/>
+                <Param name="Vf2_0" val="0"/>
+                <Param name="Pm2_0" val="0"/>
+                <!--Synchrnous generator 3 (Bus 3) additional parameters-->
+                <Param name="delta3_0" val="0"/>
+                <Param name="id3_0" val="0"/>
+                <Param name="iq3_0" val="0"/>
+                <Param name="Ig3r" val="0"/>
+                <Param name="Ig3im" val="0"/>
+                <Param name="Ig3" val="0"/>
+                <Param name="fi3" val="0"/>
+                <Param name="dR3" val="0"/>
+                <Param name="dI3" val="0"/>
+                <Param name="e1q3_0" val="0"/>
+                <Param name="vd3_0" val="0"/>
+                <Param name="vq3_0" val="0"/>
+                <Param name="Vf3_0" val="0"/>
+                <Param name="Pm3_0" val="0"/>
+            </Params>
+            <!--Power flow non-linear equations-->
+            <NLEqs>
+                <Eq fx="V1 - V1_0 = 0"/>
+                <Eq fx="theta1 - theta1_0 = 0"/>
+                <Eq fx="V2 - V2_0 = 0"/>
+                <Eq fx="V2^2*G2_2+ V2*V8*(G2_8*cos(theta2- theta8) + B2_8*sin(theta2 - theta8)) - (pg2_0- pl2_0)"/>
+                <Eq fx="V3 - V3_0 = 0"/>
+                <Eq fx="V3^2*G3_3+ V3*V6*(G3_6*cos(theta3- theta6) + B3_6*sin(theta3 - theta6)) - (pg3_0- pl3_0)"/>
+                <Eq fx="V4^2*G4_4+ V4*V1*(G4_1*cos(theta4- theta1) + B4_1*sin(theta4 - theta1))+ V4*V5*(G4_5*cos(theta4- theta5) + B4_5*sin(theta4 - theta5))+ V4*V9*(G4_9*cos(theta4- theta9) + B4_9*sin(theta4 - theta9)) + pl4_0 - pg9_0"/>
+                <Eq fx="-V4^2*B4_4+ V4*V1*(G4_1*sin(theta4- theta1) - B4_1*cos(theta4 - theta1))+ V4*V5*(G4_5*sin(theta4- theta5) - B4_5*cos(theta4 - theta5))+ V4*V9*(G4_9*sin(theta4- theta9) - B4_9*cos(theta4 - theta9)) + ql4_0 - qg9_0"/>
+                <Eq fx="V5^2*G5_5+ V5*V4*(G5_4*cos(theta5- theta4) + B5_4*sin(theta5 - theta4))+ V5*V6*(G5_6*cos(theta5- theta6) + B5_6*sin(theta5 - theta6)) + pl5_0 - pg9_0"/>
+                <Eq fx="-V5^2*B5_5+ V5*V4*(G5_4*sin(theta5- theta4) - B5_4*cos(theta5 - theta4))+ V5*V6*(G5_6*sin(theta5- theta6) - B5_6*cos(theta5 - theta6)) + ql5_0 - qg9_0"/>
+                <Eq fx="V6^2*G6_6+ V6*V3*(G6_3*cos(theta6- theta3) + B6_3*sin(theta6 - theta3))+ V6*V5*(G6_5*cos(theta6- theta5) + B6_5*sin(theta6 - theta5))+ V6*V7*(G6_7*cos(theta6- theta7) + B6_7*sin(theta6 - theta7)) + pl6_0 - pg9_0"/>
+                <Eq fx="-V6^2*B6_6+ V6*V3*(G6_3*sin(theta6- theta3) - B6_3*cos(theta6 - theta3))+ V6*V5*(G6_5*sin(theta6- theta5) - B6_5*cos(theta6 - theta5))+ V6*V7*(G6_7*sin(theta6- theta7) - B6_7*cos(theta6 - theta7)) + ql6_0 - qg9_0"/>
+                <Eq fx="V7^2*G7_7+ V7*V6*(G7_6*cos(theta7- theta6) + B7_6*sin(theta7 - theta6))+ V7*V8*(G7_8*cos(theta7- theta8) + B7_8*sin(theta7 - theta8)) + pl7_0 - pg9_0"/>
+                <Eq fx="-V7^2*B7_7+ V7*V6*(G7_6*sin(theta7- theta6) - B7_6*cos(theta7 - theta6))+ V7*V8*(G7_8*sin(theta7- theta8) - B7_8*cos(theta7 - theta8)) + ql7_0 - qg9_0"/>
+                <Eq fx="V8^2*G8_8+ V8*V2*(G8_2*cos(theta8- theta2) + B8_2*sin(theta8 - theta2))+ V8*V7*(G8_7*cos(theta8- theta7) + B8_7*sin(theta8 - theta7))+ V8*V9*(G8_9*cos(theta8- theta9) + B8_9*sin(theta8 - theta9)) + pl8_0 - pg9_0"/>
+                <Eq fx="-V8^2*B8_8+ V8*V2*(G8_2*sin(theta8- theta2) - B8_2*cos(theta8 - theta2))+ V8*V7*(G8_7*sin(theta8- theta7) - B8_7*cos(theta8 - theta7))+ V8*V9*(G8_9*sin(theta8- theta9) - B8_9*cos(theta8 - theta9)) + ql8_0 - qg9_0"/>
+                <Eq fx="V9^2*G9_9+ V9*V4*(G9_4*cos(theta9- theta4) + B9_4*sin(theta9 - theta4))+ V9*V8*(G9_8*cos(theta9- theta8) + B9_8*sin(theta9 - theta8)) + pl9_0 - pg9_0"/>
+                <Eq fx="-V9^2*B9_9+ V9*V4*(G9_4*sin(theta9- theta4) - B9_4*cos(theta9 - theta4))+ V9*V8*(G9_8*sin(theta9- theta8) - B9_8*cos(theta9 - theta8)) + ql9_0 - qg9_0"/>
+            </NLEqs>
+            <PostProc>
+                <!--Initalization of power network variables-->
+                <Eq fx="base.V1 = V1"/>
+                <Eq fx="base.theta1 = theta1"/>
+                <Eq fx="base.V2 = V2"/>
+                <Eq fx="base.theta2 = theta2"/>
+                <Eq fx="base.V3 = V3"/>
+                <Eq fx="base.theta3 = theta3"/>
+                <Eq fx="base.V4 = V4"/>
+                <Eq fx="base.theta4 = theta4"/>
+                <Eq fx="base.V5 = V5"/>
+                <Eq fx="base.theta5 = theta5"/>
+                <Eq fx="base.V6 = V6"/>
+                <Eq fx="base.theta6 = theta6"/>
+                <Eq fx="base.V7 = V7"/>
+                <Eq fx="base.theta7 = theta7"/>
+                <Eq fx="base.V8 = V8"/>
+                <Eq fx="base.theta8 = theta8"/>
+                <Eq fx="base.V9 = V9"/>
+                <Eq fx="base.theta9 = theta9"/>
+                <Eq fx="I1r = + V1 * (G1_1*cos(theta1) - B1_1*sin(theta1))+ V2 * (G1_2*cos(theta2) - B1_2*sin(theta2))+ V3 * (G1_3*cos(theta3) - B1_3*sin(theta3))+ V4 * (G1_4*cos(theta4) - B1_4*sin(theta4))+ V5 * (G1_5*cos(theta5) - B1_5*sin(theta5))+ V6 * (G1_6*cos(theta6) - B1_6*sin(theta6))+ V7 * (G1_7*cos(theta7) - B1_7*sin(theta7))+ V8 * (G1_8*cos(theta8) - B1_8*sin(theta8))+ V9 * (G1_9*cos(theta9) - B1_9*sin(theta9))"/>
+                <Eq fx="I1im = + V1 * (G1_1*sin(theta1) + B1_1*cos(theta1))+ V2 * (G1_2*sin(theta2) + B1_2*cos(theta2))+ V3 * (G1_3*sin(theta3) + B1_3*cos(theta3))+ V4 * (G1_4*sin(theta4) + B1_4*cos(theta4))+ V5 * (G1_5*sin(theta5) + B1_5*cos(theta5))+ V6 * (G1_6*sin(theta6) + B1_6*cos(theta6))+ V7 * (G1_7*sin(theta7) + B1_7*cos(theta7))+ V8 * (G1_8*sin(theta8) + B1_8*cos(theta8))+ V9 * (G1_9*sin(theta9) + B1_9*cos(theta9))"/>
+                <Eq fx="I2r = + V1 * (G2_1*cos(theta1) - B2_1*sin(theta1))+ V2 * (G2_2*cos(theta2) - B2_2*sin(theta2))+ V3 * (G2_3*cos(theta3) - B2_3*sin(theta3))+ V4 * (G2_4*cos(theta4) - B2_4*sin(theta4))+ V5 * (G2_5*cos(theta5) - B2_5*sin(theta5))+ V6 * (G2_6*cos(theta6) - B2_6*sin(theta6))+ V7 * (G2_7*cos(theta7) - B2_7*sin(theta7))+ V8 * (G2_8*cos(theta8) - B2_8*sin(theta8))+ V9 * (G2_9*cos(theta9) - B2_9*sin(theta9))"/>
+                <Eq fx="I2im = + V1 * (G2_1*sin(theta1) + B2_1*cos(theta1))+ V2 * (G2_2*sin(theta2) + B2_2*cos(theta2))+ V3 * (G2_3*sin(theta3) + B2_3*cos(theta3))+ V4 * (G2_4*sin(theta4) + B2_4*cos(theta4))+ V5 * (G2_5*sin(theta5) + B2_5*cos(theta5))+ V6 * (G2_6*sin(theta6) + B2_6*cos(theta6))+ V7 * (G2_7*sin(theta7) + B2_7*cos(theta7))+ V8 * (G2_8*sin(theta8) + B2_8*cos(theta8))+ V9 * (G2_9*sin(theta9) + B2_9*cos(theta9))"/>
+                <Eq fx="I3r = + V1 * (G3_1*cos(theta1) - B3_1*sin(theta1))+ V2 * (G3_2*cos(theta2) - B3_2*sin(theta2))+ V3 * (G3_3*cos(theta3) - B3_3*sin(theta3))+ V4 * (G3_4*cos(theta4) - B3_4*sin(theta4))+ V5 * (G3_5*cos(theta5) - B3_5*sin(theta5))+ V6 * (G3_6*cos(theta6) - B3_6*sin(theta6))+ V7 * (G3_7*cos(theta7) - B3_7*sin(theta7))+ V8 * (G3_8*cos(theta8) - B3_8*sin(theta8))+ V9 * (G3_9*cos(theta9) - B3_9*sin(theta9))"/>
+                <Eq fx="I3im = + V1 * (G3_1*sin(theta1) + B3_1*cos(theta1))+ V2 * (G3_2*sin(theta2) + B3_2*cos(theta2))+ V3 * (G3_3*sin(theta3) + B3_3*cos(theta3))+ V4 * (G3_4*sin(theta4) + B3_4*cos(theta4))+ V5 * (G3_5*sin(theta5) + B3_5*cos(theta5))+ V6 * (G3_6*sin(theta6) + B3_6*cos(theta6))+ V7 * (G3_7*sin(theta7) + B3_7*cos(theta7))+ V8 * (G3_8*sin(theta8) + B3_8*cos(theta8))+ V9 * (G3_9*sin(theta9) + B3_9*cos(theta9))"/>
+                <Eq fx="I4r = + V1 * (G4_1*cos(theta1) - B4_1*sin(theta1))+ V2 * (G4_2*cos(theta2) - B4_2*sin(theta2))+ V3 * (G4_3*cos(theta3) - B4_3*sin(theta3))+ V4 * (G4_4*cos(theta4) - B4_4*sin(theta4))+ V5 * (G4_5*cos(theta5) - B4_5*sin(theta5))+ V6 * (G4_6*cos(theta6) - B4_6*sin(theta6))+ V7 * (G4_7*cos(theta7) - B4_7*sin(theta7))+ V8 * (G4_8*cos(theta8) - B4_8*sin(theta8))+ V9 * (G4_9*cos(theta9) - B4_9*sin(theta9))"/>
+                <Eq fx="I4im = + V1 * (G4_1*sin(theta1) + B4_1*cos(theta1))+ V2 * (G4_2*sin(theta2) + B4_2*cos(theta2))+ V3 * (G4_3*sin(theta3) + B4_3*cos(theta3))+ V4 * (G4_4*sin(theta4) + B4_4*cos(theta4))+ V5 * (G4_5*sin(theta5) + B4_5*cos(theta5))+ V6 * (G4_6*sin(theta6) + B4_6*cos(theta6))+ V7 * (G4_7*sin(theta7) + B4_7*cos(theta7))+ V8 * (G4_8*sin(theta8) + B4_8*cos(theta8))+ V9 * (G4_9*sin(theta9) + B4_9*cos(theta9))"/>
+                <Eq fx="I5r = + V1 * (G5_1*cos(theta1) - B5_1*sin(theta1))+ V2 * (G5_2*cos(theta2) - B5_2*sin(theta2))+ V3 * (G5_3*cos(theta3) - B5_3*sin(theta3))+ V4 * (G5_4*cos(theta4) - B5_4*sin(theta4))+ V5 * (G5_5*cos(theta5) - B5_5*sin(theta5))+ V6 * (G5_6*cos(theta6) - B5_6*sin(theta6))+ V7 * (G5_7*cos(theta7) - B5_7*sin(theta7))+ V8 * (G5_8*cos(theta8) - B5_8*sin(theta8))+ V9 * (G5_9*cos(theta9) - B5_9*sin(theta9))"/>
+                <Eq fx="I5im = + V1 * (G5_1*sin(theta1) + B5_1*cos(theta1))+ V2 * (G5_2*sin(theta2) + B5_2*cos(theta2))+ V3 * (G5_3*sin(theta3) + B5_3*cos(theta3))+ V4 * (G5_4*sin(theta4) + B5_4*cos(theta4))+ V5 * (G5_5*sin(theta5) + B5_5*cos(theta5))+ V6 * (G5_6*sin(theta6) + B5_6*cos(theta6))+ V7 * (G5_7*sin(theta7) + B5_7*cos(theta7))+ V8 * (G5_8*sin(theta8) + B5_8*cos(theta8))+ V9 * (G5_9*sin(theta9) + B5_9*cos(theta9))"/>
+                <Eq fx="I6r = + V1 * (G6_1*cos(theta1) - B6_1*sin(theta1))+ V2 * (G6_2*cos(theta2) - B6_2*sin(theta2))+ V3 * (G6_3*cos(theta3) - B6_3*sin(theta3))+ V4 * (G6_4*cos(theta4) - B6_4*sin(theta4))+ V5 * (G6_5*cos(theta5) - B6_5*sin(theta5))+ V6 * (G6_6*cos(theta6) - B6_6*sin(theta6))+ V7 * (G6_7*cos(theta7) - B6_7*sin(theta7))+ V8 * (G6_8*cos(theta8) - B6_8*sin(theta8))+ V9 * (G6_9*cos(theta9) - B6_9*sin(theta9))"/>
+                <Eq fx="I6im = + V1 * (G6_1*sin(theta1) + B6_1*cos(theta1))+ V2 * (G6_2*sin(theta2) + B6_2*cos(theta2))+ V3 * (G6_3*sin(theta3) + B6_3*cos(theta3))+ V4 * (G6_4*sin(theta4) + B6_4*cos(theta4))+ V5 * (G6_5*sin(theta5) + B6_5*cos(theta5))+ V6 * (G6_6*sin(theta6) + B6_6*cos(theta6))+ V7 * (G6_7*sin(theta7) + B6_7*cos(theta7))+ V8 * (G6_8*sin(theta8) + B6_8*cos(theta8))+ V9 * (G6_9*sin(theta9) + B6_9*cos(theta9))"/>
+                <Eq fx="I7r = + V1 * (G7_1*cos(theta1) - B7_1*sin(theta1))+ V2 * (G7_2*cos(theta2) - B7_2*sin(theta2))+ V3 * (G7_3*cos(theta3) - B7_3*sin(theta3))+ V4 * (G7_4*cos(theta4) - B7_4*sin(theta4))+ V5 * (G7_5*cos(theta5) - B7_5*sin(theta5))+ V6 * (G7_6*cos(theta6) - B7_6*sin(theta6))+ V7 * (G7_7*cos(theta7) - B7_7*sin(theta7))+ V8 * (G7_8*cos(theta8) - B7_8*sin(theta8))+ V9 * (G7_9*cos(theta9) - B7_9*sin(theta9))"/>
+                <Eq fx="I7im = + V1 * (G7_1*sin(theta1) + B7_1*cos(theta1))+ V2 * (G7_2*sin(theta2) + B7_2*cos(theta2))+ V3 * (G7_3*sin(theta3) + B7_3*cos(theta3))+ V4 * (G7_4*sin(theta4) + B7_4*cos(theta4))+ V5 * (G7_5*sin(theta5) + B7_5*cos(theta5))+ V6 * (G7_6*sin(theta6) + B7_6*cos(theta6))+ V7 * (G7_7*sin(theta7) + B7_7*cos(theta7))+ V8 * (G7_8*sin(theta8) + B7_8*cos(theta8))+ V9 * (G7_9*sin(theta9) + B7_9*cos(theta9))"/>
+                <Eq fx="I8r = + V1 * (G8_1*cos(theta1) - B8_1*sin(theta1))+ V2 * (G8_2*cos(theta2) - B8_2*sin(theta2))+ V3 * (G8_3*cos(theta3) - B8_3*sin(theta3))+ V4 * (G8_4*cos(theta4) - B8_4*sin(theta4))+ V5 * (G8_5*cos(theta5) - B8_5*sin(theta5))+ V6 * (G8_6*cos(theta6) - B8_6*sin(theta6))+ V7 * (G8_7*cos(theta7) - B8_7*sin(theta7))+ V8 * (G8_8*cos(theta8) - B8_8*sin(theta8))+ V9 * (G8_9*cos(theta9) - B8_9*sin(theta9))"/>
+                <Eq fx="I8im = + V1 * (G8_1*sin(theta1) + B8_1*cos(theta1))+ V2 * (G8_2*sin(theta2) + B8_2*cos(theta2))+ V3 * (G8_3*sin(theta3) + B8_3*cos(theta3))+ V4 * (G8_4*sin(theta4) + B8_4*cos(theta4))+ V5 * (G8_5*sin(theta5) + B8_5*cos(theta5))+ V6 * (G8_6*sin(theta6) + B8_6*cos(theta6))+ V7 * (G8_7*sin(theta7) + B8_7*cos(theta7))+ V8 * (G8_8*sin(theta8) + B8_8*cos(theta8))+ V9 * (G8_9*sin(theta9) + B8_9*cos(theta9))"/>
+                <Eq fx="I9r = + V1 * (G9_1*cos(theta1) - B9_1*sin(theta1))+ V2 * (G9_2*cos(theta2) - B9_2*sin(theta2))+ V3 * (G9_3*cos(theta3) - B9_3*sin(theta3))+ V4 * (G9_4*cos(theta4) - B9_4*sin(theta4))+ V5 * (G9_5*cos(theta5) - B9_5*sin(theta5))+ V6 * (G9_6*cos(theta6) - B9_6*sin(theta6))+ V7 * (G9_7*cos(theta7) - B9_7*sin(theta7))+ V8 * (G9_8*cos(theta8) - B9_8*sin(theta8))+ V9 * (G9_9*cos(theta9) - B9_9*sin(theta9))"/>
+                <Eq fx="I9im = + V1 * (G9_1*sin(theta1) + B9_1*cos(theta1))+ V2 * (G9_2*sin(theta2) + B9_2*cos(theta2))+ V3 * (G9_3*sin(theta3) + B9_3*cos(theta3))+ V4 * (G9_4*sin(theta4) + B9_4*cos(theta4))+ V5 * (G9_5*sin(theta5) + B9_5*cos(theta5))+ V6 * (G9_6*sin(theta6) + B9_6*cos(theta6))+ V7 * (G9_7*sin(theta7) + B9_7*cos(theta7))+ V8 * (G9_8*sin(theta8) + B9_8*cos(theta8))+ V9 * (G9_9*sin(theta9) + B9_9*cos(theta9))"/>
+                <!--Initalization of Synchrnous generator 1 (Bus 1) variables-->
+                <Eq fx="base.w1 = ws"/>
+                <Eq fx="Ig1r = I1r + (1/V1) * (pl1_0 * cos(theta1) + ql1_0 * sin(theta1))"/>
+                <Eq fx="Ig1im = I1im + (1/V1) * (pl1_0 * sin(theta1) - ql1_0 * cos(theta1))"/>
+                <Eq fx="Ig1 = sqrt(Ig1r^2 + Ig1im^2)"/>
+                <Eq fx="fi1 = atg2(Ig1r, Ig1im)"/>
+                <Eq fx="dR1 = -xq1 * Ig1 * cos(fi1) - V1 * sin(theta1)"/>
+                <Eq fx="dI1 = -V1 * cos(theta1) + xq1 * Ig1 * sin(fi1)"/>
+                <Eq fx="delta1_0 = atg(dR1/dI1)"/>
+                <Eq fx="base.delta1= delta1_0"/>
+                <Eq fx="vd1_0 = V1 * cos(pi/2 - delta1_0 + theta1)"/>
+                <Eq fx="vq1_0 = V1 * sin(pi/2 - delta1_0 + theta1)"/>
+                <Eq fx="id1_0 = Ig1 * cos(pi/2 - delta1_0 + fi1)"/>
+                <Eq fx="base.id1 = id1_0"/>
+                <Eq fx="iq1_0 = Ig1 * sin(pi/2 - delta1_0 + fi1)"/>
+                <Eq fx="base.iq1 = iq1_0"/>
+                <Eq fx="e1q1_0 = V1* cos(theta1 - delta1_0) + x1d1 * id1_0"/>
+                <Eq fx="base.e1q1= e1q1_0"/>
+                <Eq fx="Vf1_0 = e1q1_0 + (xd1 - x1d1) * id1_0"/>
+                <Eq fx="Pm1_0 = e1q1_0 * iq1_0 + (xq1 - x1d1) * id1_0 * iq1_0"/>
+                <Eq fx="base.Pm1= Pm1_0"/>
+                <!--Initalization of Synchrnous generator 2 (Bus 2) variables-->
+                <Eq fx="base.w2 = ws"/>
+                <Eq fx="Ig2r = I2r + (1/V2) * (pl2_0 * cos(theta2) + ql2_0 * sin(theta2))"/>
+                <Eq fx="Ig2im = I2im + (1/V2) * (pl2_0 * sin(theta2) - ql2_0 * cos(theta2))"/>
+                <Eq fx="Ig2 = sqrt(Ig2r^2 + Ig2im^2)"/>
+                <Eq fx="fi2 = atg2(Ig2r, Ig2im)"/>
+                <Eq fx="dR2 = -xq2 * Ig2 * cos(fi2) - V2 * sin(theta2)"/>
+                <Eq fx="dI2 = -V2 * cos(theta2) + xq2 * Ig2 * sin(fi2)"/>
+                <Eq fx="delta2_0 = atg(dR2/dI2)"/>
+                <Eq fx="base.delta2= delta2_0"/>
+                <Eq fx="vd2_0 = V2 * cos(pi/2 - delta2_0 + theta2)"/>
+                <Eq fx="vq2_0 = V2 * sin(pi/2 - delta2_0 + theta2)"/>
+                <Eq fx="id2_0 = Ig2 * cos(pi/2 - delta2_0 + fi2)"/>
+                <Eq fx="base.id2 = id2_0"/>
+                <Eq fx="iq2_0 = Ig2 * sin(pi/2 - delta2_0 + fi2)"/>
+                <Eq fx="base.iq2 = iq2_0"/>
+                <Eq fx="e1q2_0 = V2* cos(theta2 - delta2_0) + x1d2 * id2_0"/>
+                <Eq fx="base.e1q2= e1q2_0"/>
+                <Eq fx="Vf2_0 = e1q2_0 + (xd2 - x1d2) * id2_0"/>
+                <Eq fx="Pm2_0 = e1q2_0 * iq2_0 + (xq2 - x1d2) * id2_0 * iq2_0"/>
+                <Eq fx="base.Pm2= Pm2_0"/>
+                <!--Initalization of Synchrnous generator 3 (Bus 3) variables-->
+                <Eq fx="base.w3 = ws"/>
+                <Eq fx="Ig3r = I3r + (1/V3) * (pl3_0 * cos(theta3) + ql3_0 * sin(theta3))"/>
+                <Eq fx="Ig3im = I3im + (1/V3) * (pl3_0 * sin(theta3) - ql3_0 * cos(theta3))"/>
+                <Eq fx="Ig3 = sqrt(Ig3r^2 + Ig3im^2)"/>
+                <Eq fx="fi3 = atg2(Ig3r, Ig3im)"/>
+                <Eq fx="dR3 = -xq3 * Ig3 * cos(fi3) - V3 * sin(theta3)"/>
+                <Eq fx="dI3 = -V3 * cos(theta3) + xq3 * Ig3 * sin(fi3)"/>
+                <Eq fx="delta3_0 = atg(dR3/dI3)"/>
+                <Eq fx="base.delta3= delta3_0"/>
+                <Eq fx="vd3_0 = V3 * cos(pi/2 - delta3_0 + theta3)"/>
+                <Eq fx="vq3_0 = V3 * sin(pi/2 - delta3_0 + theta3)"/>
+                <Eq fx="id3_0 = Ig3 * cos(pi/2 - delta3_0 + fi3)"/>
+                <Eq fx="base.id3 = id3_0"/>
+                <Eq fx="iq3_0 = Ig3 * sin(pi/2 - delta3_0 + fi3)"/>
+                <Eq fx="base.iq3 = iq3_0"/>
+                <Eq fx="e1q3_0 = V3* cos(theta3 - delta3_0) + x1d3 * id3_0"/>
+                <Eq fx="base.e1q3= e1q3_0"/>
+                <Eq fx="Vf3_0 = e1q3_0 + (xd3 - x1d3) * id3_0"/>
+                <Eq fx="Pm3_0 = e1q3_0 * iq3_0 + (xq3 - x1d3) * id3_0 * iq3_0"/>
+                <Eq fx="base.Pm3= Pm3_0"/>
+                <Eq fx="base.vf1 = Vf1_0"/>
+                <Eq fx="base.vrm1 = V1"/>
+                <Eq fx="base.vrf1 =  -Kf1 * Vf1_0 /Tf1"/>
+                <Eq fx="base.vrr1 = Kef1 * Vf1_0 + Aef1 * exp(Bef1 * Vf1_0) * Vf1_0"/>
+                <Eq fx="base.Vref1 = V1 + (1/Ka1) * (Kef1 * Vf1_0 + Aef1 * exp(Bef1 * Vf1_0) * Vf1_0)"/>
+                <Eq fx="base.vf2 = Vf2_0"/>
+                <Eq fx="base.vrm2 = V2"/>
+                <Eq fx="base.vrf2 =  -Kf2 * Vf2_0 /Tf2"/>
+                <Eq fx="base.vrr2 = Kef2 * Vf2_0 + Aef2 * exp(Bef2 * Vf2_0) * Vf2_0"/>
+                <Eq fx="base.Vref2 = V2 + (1/Ka2) * (Kef2 * Vf2_0 + Aef2 * exp(Bef2 * Vf2_0) * Vf2_0)"/>
+                <Eq fx="base.vf3 = Vf3_0"/>
+                <Eq fx="base.vrm3 = V3"/>
+                <Eq fx="base.vrf3 =  -Kf3 * Vf3_0 /Tf3"/>
+                <Eq fx="base.vrr3 = Kef3 * Vf3_0 + Aef3 * exp(Bef3 * Vf3_0) * Vf3_0"/>
+                <Eq fx="base.Vref3 = V3 + (1/Ka3) * (Kef3 * Vf3_0 + Aef3 * exp(Bef3 * Vf3_0) * Vf3_0)"/>
+               <!--PID controllers initialization-->
+               <Eq fx="base.pid_integral1 = 0"/>
+               <Eq fx="base.pid_error_prev1 = 0"/>
+               <Eq fx="base.pid_integral2 = 0"/>
+               <Eq fx="base.pid_error_prev2 = 0"/>
+               <Eq fx="base.pid_integral3 = 0"/>
+               <Eq fx="base.pid_error_prev3 = 0"/>
+               
+               <Eq fx="base.pid_error1 = 0"/>
+               <Eq fx="base.pid_derivative1 = 0"/>
+               <Eq fx="base.pid_output1 = 0"/>
+
+              <Eq fx="base.pid_error2 = 0"/>
+              <Eq fx="base.pid_derivative2 = 0"/>
+              <Eq fx="base.pid_output2 = 0"/>     
+              <Eq fx="base.pid_error3 = 0"/>
+              <Eq fx="base.pid_derivative3 = 0"/>
+              <Eq fx="base.pid_output3 = 0"/>
+            </PostProc>
+        </Model>
+    </Init>
+    <!--Ordinary differential equations for DAE problem-->
+    <ODEqs>
+        <!--Synchrnous generator 1 (Bus 1) ordinary differential equations-->
+        <Eq fx="delta1' = wn * (w1 - ws)"/>
+        
+        <Eq fx="pid_integral1' = pid_error1"/>
+        
+        <Eq fx="pid_error_prev1' = pid_error1"/>
+       
+        <Eq fx="w1' = (1/M1) * (Pm1 + pid_output1 - (e1q1 * iq1 + (xq1 - x1d1) * id1 * iq1) - D1* (w1 - ws))"/>
+
+         
+        <Eq fx="e1q1' = (1/T1d1) * (-e1q1 - (xd1 - x1d1) * id1 + vf1)"/>
+        <!--Synchrnous generator 2 (Bus 2) ordinary differential equations-->
+        <Eq fx="delta2' = wn * (w2 - ws)"/>
+        
+        <Eq fx="pid_integral2' = pid_error2"/>
+        
+        <Eq fx="pid_error_prev2' = pid_error2"/>
+        
+        <Eq fx="w2' = (1/M2) * (Pm2 + pid_output2 - (e1q2 * iq2 + (xq2 - x1d2) * id2 * iq2) - D2* (w2 - ws))"/>
+
+        <Eq fx="e1q2' = (1/T1d2) * (-e1q2 - (xd2 - x1d2) * id2 + vf2)"/>
+        <!--Synchrnous generator 3 (Bus 3) ordinary differential equations-->
+        <Eq fx="delta3' = wn * (w3 - ws)"/>
+        
+        <Eq fx="pid_integral3' = pid_error3"/>
+        
+        <Eq fx="pid_error_prev3' = pid_error3"/>
+        
+        <Eq fx="w3' = (1/M3) * (Pm3 + pid_output3 - (e1q3 * iq3 + (xq3 - x1d3) * id3 * iq3) - D3* (w3 - ws))"/>
+        <Eq fx="e1q3' = (1/T1d3) * (-e1q3 - (xd3 - x1d3) * id3 + vf3)"/>
+        <!--Automatic voltage regulator 1 (Generator 1) ordinary differential equations-->
+        
+
+
+
+        <Eq fx="vrm1' = (1/Tr1) * (V1 - vrm1)"/>
+        <Eq fx="vrf1' = (-1/Tf1) * ((Kf1/Tf1) * vf1 + vrf1)"/>
+        <Eq fx="vrr1' = (1/Ta1) * (Ka1 * (Vref1 - vrm1 - vrf1 - (Kf1/Tf1) * vf1) - vrr1)"/>
+        <Eq fx="vf1' = (-1/Tef1) * (vf1 * (Kef1 + Aef1 * exp(Bef1 * vf1)) - vrr1)"/>
+        <!--Automatic voltage regulator 2 (Generator 2) ordinary differential equations-->
+        <Eq fx="vrm2' = (1/Tr2) * (V2 - vrm2)"/>
+        <Eq fx="vrf2' = (-1/Tf2) * ((Kf2/Tf2) * vf2 + vrf2)"/>
+        <Eq fx="vrr2' = (1/Ta2) * (Ka2 * (Vref2 - vrm2 - vrf2 - (Kf2/Tf2) * vf2) - vrr2)"/>
+        <Eq fx="vf2' = (-1/Tef2) * (vf2 * (Kef2 + Aef2 * exp(Bef2 * vf2)) - vrr2)"/>
+        <!--Automatic voltage regulator 3 (Generator 3) ordinary differential equations-->
+        <Eq fx="vrm3' = (1/Tr3) * (V3 - vrm3)"/>
+        <Eq fx="vrf3' = (-1/Tf3) * ((Kf3/Tf3) * vf3 + vrf3)"/>
+        <Eq fx="vrr3' = (1/Ta3) * (Ka3 * (Vref3 - vrm3 - vrf3 - (Kf3/Tf3) * vf3) - vrr3)"/>
+        <Eq fx="vf3' = (-1/Tef3) * (vf3 * (Kef3 + Aef3 * exp(Bef3 * vf3)) - vrr3)"/>
+    </ODEqs>
+    <!--Nonlinear algebraic equations for DAE problem-->
+    <NLEqs>
+        <!--Power network nonlinear algebraic equations-->
+        <Eq fx="V1^2*G1_1+ V1*V4*(G1_4*cos(theta1- theta4) + B1_4*sin(theta1 - theta4)) - (V1 * (iq1 * cos(theta1 - delta1) - id1 * sin(theta1 - delta1))) + pl1_0"/>
+        <Eq fx="-V1^2*B1_1+ V1*V4*(G1_4*sin(theta1- theta4) - B1_4*cos(theta1 - theta4)) - (V1 * (id1 * cos(theta1 - delta1) + iq1 * sin(theta1 - delta1))) + ql1_0"/>
+        <Eq fx="V2^2*G2_2+ V2*V8*(G2_8*cos(theta2- theta8) + B2_8*sin(theta2 - theta8)) - (V2 * (iq2 * cos(theta2 - delta2) - id2 * sin(theta2 - delta2))) + pl2_0"/>
+        <Eq fx="-V2^2*B2_2+ V2*V8*(G2_8*sin(theta2- theta8) - B2_8*cos(theta2 - theta8)) - (V2 * (id2 * cos(theta2 - delta2) + iq2 * sin(theta2 - delta2))) + ql2_0"/>
+        <Eq fx="V3^2*G3_3+ V3*V6*(G3_6*cos(theta3- theta6) + B3_6*sin(theta3 - theta6)) - (V3 * (iq3 * cos(theta3 - delta3) - id3 * sin(theta3 - delta3))) + pl3_0"/>
+        <Eq fx="-V3^2*B3_3+ V3*V6*(G3_6*sin(theta3- theta6) - B3_6*cos(theta3 - theta6)) - (V3 * (id3 * cos(theta3 - delta3) + iq3 * sin(theta3 - delta3))) + ql3_0"/>
+        <Eq fx="V4^2*G4_4+ V4*V1*(G4_1*cos(theta4- theta1) + B4_1*sin(theta4 - theta1))+ V4*V5*(G4_5*cos(theta4- theta5) + B4_5*sin(theta4 - theta5))+ V4*V9*(G4_9*cos(theta4- theta9) + B4_9*sin(theta4 - theta9)) + pl4_0 - pg4_0"/>
+        <Eq fx="-V4^2*B4_4+ V4*V1*(G4_1*sin(theta4- theta1) - B4_1*cos(theta4 - theta1))+ V4*V5*(G4_5*sin(theta4- theta5) - B4_5*cos(theta4 - theta5))+ V4*V9*(G4_9*sin(theta4- theta9) - B4_9*cos(theta4 - theta9)) + ql4_0 - qg4_0"/>
+        <Eq fx="V5^2*G5_5+ V5*V4*(G5_4*cos(theta5- theta4) + B5_4*sin(theta5 - theta4))+ V5*V6*(G5_6*cos(theta5- theta6) + B5_6*sin(theta5 - theta6)) + pl5_0 - pg5_0"/>
+        <Eq fx="-V5^2*B5_5+ V5*V4*(G5_4*sin(theta5- theta4) - B5_4*cos(theta5 - theta4))+ V5*V6*(G5_6*sin(theta5- theta6) - B5_6*cos(theta5 - theta6)) + ql5_0 - qg5_0"/>
+        <Eq fx="V6^2*G6_6+ V6*V3*(G6_3*cos(theta6- theta3) + B6_3*sin(theta6 - theta3))+ V6*V5*(G6_5*cos(theta6- theta5) + B6_5*sin(theta6 - theta5))+ V6*V7*(G6_7*cos(theta6- theta7) + B6_7*sin(theta6 - theta7)) + pl6_0 - pg6_0"/>
+        <Eq fx="-V6^2*B6_6+ V6*V3*(G6_3*sin(theta6- theta3) - B6_3*cos(theta6 - theta3))+ V6*V5*(G6_5*sin(theta6- theta5) - B6_5*cos(theta6 - theta5))+ V6*V7*(G6_7*sin(theta6- theta7) - B6_7*cos(theta6 - theta7)) + ql6_0 - qg6_0"/>
+        <Eq fx="V7^2*G7_7+ V7*V6*(G7_6*cos(theta7- theta6) + B7_6*sin(theta7 - theta6))+ V7*V8*(G7_8*cos(theta7- theta8) + B7_8*sin(theta7 - theta8)) + pl7_0 - pg7_0"/>
+        <Eq fx="-V7^2*B7_7+ V7*V6*(G7_6*sin(theta7- theta6) - B7_6*cos(theta7 - theta6))+ V7*V8*(G7_8*sin(theta7- theta8) - B7_8*cos(theta7 - theta8)) + ql7_0 - qg7_0"/>
+        <Eq fx="V8^2*G8_8+ V8*V2*(G8_2*cos(theta8- theta2) + B8_2*sin(theta8 - theta2))+ V8*V7*(G8_7*cos(theta8- theta7) + B8_7*sin(theta8 - theta7))+ V8*V9*(G8_9*cos(theta8- theta9) + B8_9*sin(theta8 - theta9)) + pl8_0 - pg8_0"/>
+        <Eq fx="-V8^2*B8_8+ V8*V2*(G8_2*sin(theta8- theta2) - B8_2*cos(theta8 - theta2))+ V8*V7*(G8_7*sin(theta8- theta7) - B8_7*cos(theta8 - theta7))+ V8*V9*(G8_9*sin(theta8- theta9) - B8_9*cos(theta8 - theta9)) + ql8_0 - qg8_0"/>
+        <Eq fx="V9^2*G9_9+ V9*V4*(G9_4*cos(theta9- theta4) + B9_4*sin(theta9 - theta4))+ V9*V8*(G9_8*cos(theta9- theta8) + B9_8*sin(theta9 - theta8)) + pl9_0 - pg9_0"/>
+        <Eq fx="-V9^2*B9_9+ V9*V4*(G9_4*sin(theta9- theta4) - B9_4*cos(theta9 - theta4))+ V9*V8*(G9_8*sin(theta9- theta8) - B9_8*cos(theta9 - theta8)) + ql9_0 - qg9_0"/>
+        <!--Synchrnous generator 1 (Bus 1) algebraic equations-->
+        <Eq fx="xq1 * iq1 + V1 * sin(theta1 -  delta1) = 0"/>
+        <Eq fx="e1q1 - V1 * cos(theta1 -  delta1) - x1d1 * id1 = 0"/>
+        <!--Synchrnous generator 2 (Bus 2) algebraic equations-->
+        <Eq fx="xq2 * iq2 + V2 * sin(theta2 -  delta2) = 0"/>
+        <Eq fx="e1q2 - V2 * cos(theta2 -  delta2) - x1d2 * id2 = 0"/>
+        <!--Synchrnous generator 3 (Bus 3) algebraic equations-->
+        <Eq fx="xq3 * iq3 + V3 * sin(theta3 -  delta3) = 0"/>
+        <Eq fx="e1q3 - V3 * cos(theta3 -  delta3) - x1d3 * id3 = 0"/>
+        <!--PID controller algebraic equations-->
+        <Eq fx="pid_error1 - (ws - w1) = 0"/>
+        <Eq fx="pid_derivative1 - (pid_error1 - pid_error_prev1) = 0"/>
+        <Eq fx="pid_output1 - (Kp1 * pid_error1 + Ki1 * pid_integral1 + Kd1 * pid_derivative1) = 0"/>
+
+        <Eq fx="pid_error2 - (ws - w2) = 0"/>
+        <Eq fx="pid_derivative2 - (pid_error2 - pid_error_prev2) = 0"/>
+        <Eq fx="pid_output2 - (Kp2 * pid_error2 + Ki2 * pid_integral2 + Kd2 * pid_derivative2) = 0"/>
+
+        <Eq fx="pid_error3 - (ws - w3) = 0"/>
+        <Eq fx="pid_derivative3 - (pid_error3 - pid_error_prev3) = 0"/>
+        <Eq fx="pid_output3 - (Kp3 * pid_error3 + Ki3 * pid_integral3 + Kd3 * pid_derivative3) = 0"/>
+    </NLEqs>
+    <!--Postprocessing: disturbance/perturbance definition-->
+<PostProc>
+    <!-- Fault phase: simulate short circuit at bus 7 -->
+    <Eq cond="t >= 1.0 and t < 1.179">
+        <Then fx="G7_7 = 0.0 "/>
+        <Then fx="B7_7 = -1000"/>
+ <!-- Visoka provodnost kao approximacija trofaznog kratkog spoja -->
+    </Eq>
+
+    <Eq cond="t >= 1.179">
+        <Then fx="G5_7 = 0.0"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="B5_7 = 0.0"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="G7_5 = 0.0"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="B7_5 = 0.0"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="G5_5 = 3.2242"/> 
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="B5_5 = -15.8409"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="G7_7 = 2.7722"/>
+    </Eq>
+    <Eq cond="t >= 1.179">
+        <Then fx="B7_7 = -23.3032"/>
+    </Eq>
+</PostProc>
+</Model>
